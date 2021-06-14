@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-
 import { GraphQLModule } from '@nestjs/graphql';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     GraphQLModule.forRoot({
@@ -12,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
       autoSchemaFile: 'schema.gql',
       installSubscriptionHandlers: true,
     }),
+    ConfigModule.forRoot(),
     UserModule,
     AuthModule,
   ],
