@@ -1,25 +1,22 @@
 import { Client } from 'pg';
-
-export default class Database {
-  private static client: Client | null = null;
-
-  private constructor() {
-    Database.client = new Client({
+let client: Client | null = null;
+export const db = () => {
+  if (!client) {
+    client = new Client({
       user: 'postgres',
       host: 'localhost',
       database: 'MyFeedRSS',
       password: '12345',
       port: 5432,
     });
-    Database.client.connect();
+    client.connect();
   }
+  return client;
+};
 
-  public static connection(): Client {
-    if (!this.client) {
-      new Database();
-      return Database.client;
-    } else {
-      return Database.client;
-    }
+export const closeConnection = async () => {
+  if (client) {
+    await client.end();
+    client = null;
   }
-}
+};
