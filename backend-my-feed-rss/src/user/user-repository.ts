@@ -30,4 +30,24 @@ export class UserRepository {
 
     return result.rows[0];
   }
+
+  async getUserById(id: string): Promise<User> {
+    const client = db();
+    const text = 'select * from users where id=$1';
+    const result = await client.query(text, [id]);
+
+    await closeConnection();
+
+    return result.rows[0];
+  }
+
+  async getAllUsers(): Promise<User[]> {
+    const client = db();
+    const text = 'select * from users';
+    const result = await client.query(text);
+
+    await closeConnection();
+
+    return result.rows;
+  }
 }
