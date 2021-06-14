@@ -9,17 +9,28 @@ type User {
   email: String!
 }
 
+type AuthType {
+  user: User!
+  token: String!
+}
+
 type Query {
   getUserByEmail(email: String!): User!
 }
 
 type Mutation {
   createUser(createUser: CreateUser!): User!
+  login(login: AuthInput!): AuthType!
 }
 
 input CreateUser {
   name: String!
   username: String!
+  email: String!
+  password: String!
+}
+
+input AuthInput {
   email: String!
   password: String!
 }
