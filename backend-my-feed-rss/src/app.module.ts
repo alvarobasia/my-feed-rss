@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
       playground: true,
       autoSchemaFile: 'schema.gql',
       installSubscriptionHandlers: true,
+      context: ({ req }) => ({ req }),
     }),
     ConfigModule.forRoot(),
     UserModule,
