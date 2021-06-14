@@ -1,4 +1,4 @@
-import { InputType, Field, HideField } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 import { MaxLength, IsString, Contains } from 'class-validator';
 
 @InputType()
@@ -20,6 +20,5 @@ export class CreateUser {
 
   @IsString()
   @Field()
-  @HideField()
   password: string;
 }
