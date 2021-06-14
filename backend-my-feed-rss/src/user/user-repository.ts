@@ -16,7 +16,17 @@ export class UserRepository {
     await client.query(text, values);
     const result = await client.query('SELECT * from users where id=$1', [id]);
 
-    client.end();
+    await closeConnection();
+
+    return result.rows[0];
+  }
+
+  async getUserByEmail(email: string): Promise<User> {
+    const client = db();
+    const text = 'select * from users where email=$1';
+    const result = await client.query(text, [email]);
+
+    await closeConnection();
 
     return result.rows[0];
   }
