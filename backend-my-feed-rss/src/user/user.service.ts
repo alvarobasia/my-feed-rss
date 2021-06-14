@@ -23,4 +23,16 @@ export class UserService {
     }
     return user;
   }
+
+  async getUserById(id: string): Promise<User> {
+    const user = await this.userRepository.getUserById(id);
+    if (!user) {
+      throw new NotFoundException('usuário não encontrado');
+    }
+    return user;
+  }
+
+  async getAllUsers(): Promise<User[]> {
+    return await this.userRepository.getAllUsers();
+  }
 }
