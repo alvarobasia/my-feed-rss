@@ -54,3 +54,35 @@ export const StyledButton = styled(motion.button)`
   border-radius: 8px;
   color: #fff;
 `
+
+export const StyledImage = styled(motion.img)`
+  position: absolute;
+  bottom: 5rem;
+  left: 0;
+  opacity: 0.8;
+  z-index: -1;
+`
+
+export const StyledImageMinor = styled(motion.img)`
+  position: absolute;
+  bottom: 10rem;
+  right: 10rem;
+  opacity: 0.8;
+  z-index: -2;
+`
+
+export const StyledDivSecond = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: #ff980022;
+  min-height: 60rem;
+`
+export const StyledDivMinorCards = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #ff980022;
+`

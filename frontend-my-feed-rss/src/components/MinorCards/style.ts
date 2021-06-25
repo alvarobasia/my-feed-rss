@@ -19,10 +19,11 @@ export const StyledDiv = styled(motion.div)`
     rgba(0, 145, 255, 1) 96%
   );
 `
-// export const DivStule = styled.div`
-//   border-bottom: 100px solid #c1c1c1;
-//   border-left: 3px solid transparent;
-//   border-right: 15px solid transparent;
-//   height: 500px;
-//   width: 120px;
-// `
+export const StyledText = styled.h1`
+  font-size: 32px;
+  width: 180px;
+  overflow: hidden;
+  min-height: 2rem;
+  color: orange;
+  font-weight: 600;
+`

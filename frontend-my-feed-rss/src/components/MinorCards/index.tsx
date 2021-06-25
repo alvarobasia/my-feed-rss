@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyledDiv } from './style'
+import { StyledDiv, StyledText } from './style'
 import Image from 'next/image'
 export default function MinorCards() {
   return (
@@ -14,18 +14,7 @@ export default function MinorCards() {
     >
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <Image src="/character 14.svg" height="180px" width="200px" />
-        <h3
-          style={{
-            fontSize: '32px',
-            width: '180px',
-            overflow: 'hidden',
-            minHeight: '2rem',
-            color: 'orange',
-            fontWeight: 600
-          }}
-        >
-          Titulo
-        </h3>
+        <StyledText>Titulo</StyledText>
       </div>
 
       <p
