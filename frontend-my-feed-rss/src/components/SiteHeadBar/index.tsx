@@ -1,22 +1,25 @@
+import { useRouter } from 'next/dist/client/router'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { Button, Header, Buttons } from './styles'
 
 export default function SiteHeadBar() {
   const [isOnTop, setIsOnTop] = useState(false)
-
+  const router = useRouter()
   useEffect(() => {
     window.addEventListener('scroll', () => handleScroll())
   }, [])
 
   function handleScroll() {
-    console.log()
-
     if (window.scrollY > 100) {
       setIsOnTop(true)
     } else {
       setIsOnTop(false)
     }
+  }
+
+  function handleLogin() {
+    router.push('/login')
   }
 
   return (
@@ -46,6 +49,7 @@ export default function SiteHeadBar() {
           }}
           whileHover={{ scale: 1.08 }}
           main={false}
+          onClick={handleLogin}
         >
           Login
         </Button>
