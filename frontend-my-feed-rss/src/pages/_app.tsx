@@ -5,16 +5,19 @@ import light from '../../styles/themes/light'
 import { AnimateSharedLayout } from 'framer-motion'
 import client from '../../apollo-client'
 import { ApolloProvider } from '@apollo/client'
+import { AuthProvider } from '../contexts/AuthContext'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <AnimateSharedLayout>
-        <ThemeProvider theme={light}>
-          <GlobalStyle />
-          <ApolloProvider client={client}>
-            <Component {...pageProps} />
-          </ApolloProvider>
-        </ThemeProvider>
+        <ApolloProvider client={client}>
+          <AuthProvider>
+            <ThemeProvider theme={light}>
+              <GlobalStyle />
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </AuthProvider>
+        </ApolloProvider>
       </AnimateSharedLayout>
     </>
   )
