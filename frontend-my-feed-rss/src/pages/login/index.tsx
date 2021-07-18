@@ -1,16 +1,41 @@
 import { GetStaticProps } from 'next'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   DivInfo,
   FormLogin,
   LoginDiv,
   Paper,
   StyledButton,
-  StyledInputDiv
+  StyledInputDiv,
+  Error
 } from './styles'
 import { BsPersonFill, BsLockFill } from 'react-icons/bs'
+import { LOGIN } from '../../mutations/login'
+import { useMutation } from '@apollo/client'
 
 export default function loginPage() {
+  const [errorState, setErrorState] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const [login, { data, error, loading }] = useMutation(LOGIN, {
+    onError: () => {
+      setErrorState(true)
+    }
+  })
+
+  function onLogin() {
+    login({
+      variables: {
+        email,
+        password
+      }
+    })
+  }
+  useEffect(() => {
+    console.log(data, error, loading)
+  }, [data, error, loading])
+
   return (
     <LoginDiv>
       <FormLogin>
@@ -29,7 +54,11 @@ export default function loginPage() {
           <div>
             <BsPersonFill size={30} color={'#FF9800'} />
           </div>
-          <input placeholder="Informe seu e-mail" />
+          <input
+            placeholder="Informe seu e-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </StyledInputDiv>
         <StyledInputDiv
           whileHover={{ boxShadow: '3px 3px 8px #FF9800' }}
@@ -44,9 +73,28 @@ export default function loginPage() {
           <div>
             <BsLockFill size={30} color={'#FF9800'} />
           </div>
-          <input placeholder="Informe sua senha" type="password" />
+          <input
+            placeholder="Informe sua senha"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </StyledInputDiv>
+        {errorState && (
+          <Error
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              type: 'spring',
+              stiffness: 20,
+              duration: 0.4
+            }}
+          >
+            Login Incorreto!
+          </Error>
+        )}
         <StyledButton
+          onClick={onLogin}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{

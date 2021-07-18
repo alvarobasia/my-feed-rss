@@ -95,3 +95,9 @@ export const DivInfo = styled(motion.div)`
     }
   }
 `
+
+export const Error = styled(motion.p)`
+  color: red !important;
+  margin-top: -5px;
+  font-size: 18px;
+`
