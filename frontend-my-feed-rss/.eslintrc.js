@@ -40,6 +40,7 @@ module.exports = {
       "no-labels": ["error", { allowLoop: false, allowSwitch: false }],
       "no-continue": "off",
       "no-plusplus": "off",
+      "indent": "off",
     },
     settings: {
       react: {
