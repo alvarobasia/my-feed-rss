@@ -11,6 +11,10 @@ import { ConfigModule } from '@nestjs/config';
       autoSchemaFile: 'schema.gql',
       installSubscriptionHandlers: true,
       context: ({ req }) => ({ req }),
+      cors: {
+        origin: 'http://localhost:3000',
+        credentials: true,
+      },
     }),
     ConfigModule.forRoot(),
     UserModule,
