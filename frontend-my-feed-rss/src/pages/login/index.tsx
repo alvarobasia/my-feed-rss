@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next'
-import React, { useEffect, useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
   DivInfo,
   FormLogin,
@@ -10,31 +10,16 @@ import {
   Error
 } from './styles'
 import { BsPersonFill, BsLockFill } from 'react-icons/bs'
-import { LOGIN } from '../../mutations/login'
-import { useMutation } from '@apollo/client'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export default function loginPage() {
-  const [errorState, setErrorState] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const [login, { data, error, loading }] = useMutation(LOGIN, {
-    onError: () => {
-      setErrorState(true)
-    }
-  })
+  const { singIn, error } = useContext(AuthContext)
 
   function onLogin() {
-    login({
-      variables: {
-        email,
-        password
-      }
-    })
+    singIn(email, password)
   }
-  useEffect(() => {
-    console.log(data, error, loading)
-  }, [data, error, loading])
 
   return (
     <LoginDiv>
@@ -80,7 +65,7 @@ export default function loginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </StyledInputDiv>
-        {errorState && (
+        {error && (
           <Error
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
