@@ -8,17 +8,14 @@ import { ApolloProvider } from '@apollo/client'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <ApolloProvider client={client}>
-        <AnimateSharedLayout>
-          <ThemeProvider theme={light}>
-            <GlobalStyle />
-            <head>
-              <title>My feed RSS</title>
-            </head>
+      <AnimateSharedLayout>
+        <ThemeProvider theme={light}>
+          <GlobalStyle />
+          <ApolloProvider client={client}>
             <Component {...pageProps} />
-          </ThemeProvider>
-        </AnimateSharedLayout>
-      </ApolloProvider>
+          </ApolloProvider>
+        </ThemeProvider>
+      </AnimateSharedLayout>
     </>
   )
 }
