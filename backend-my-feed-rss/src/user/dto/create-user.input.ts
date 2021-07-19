@@ -21,4 +21,8 @@ export class CreateUser {
   @IsString()
   @Field()
   password: string;
+
+  @IsString()
+  @Field()
+  link_avatar: string;
 }

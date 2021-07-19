@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-import { Client } from 'pg';
 import { CreateUser } from './dto/create-user.input';
 import { User } from './entities/user.entity';
 import { v4 as uuid } from 'uuid';
@@ -11,8 +10,15 @@ export class UserRepository {
     const id = uuid();
     const client = db();
     const text =
-      'insert into users(id, name,email, password, username ) values ($1, $2, $3, $4, $5)';
-    const values = [id, user.name, user.email, user.password, user.username];
+      'insert into users(id, name,email, password, username, link_avatar ) values ($1, $2, $3, $4, $5)';
+    const values = [
+      id,
+      user.name,
+      user.email,
+      user.password,
+      user.username,
+      user.link_avatar,
+    ];
     await client.query(text, values);
     const result = await client.query('SELECT * from users where id=$1', [id]);
 

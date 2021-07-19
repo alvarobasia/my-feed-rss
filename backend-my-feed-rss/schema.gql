@@ -7,6 +7,7 @@ type User {
   name: String!
   username: String!
   email: String!
+  link_avatar: String!
 }
 
 type AuthType {
@@ -29,6 +30,7 @@ input CreateUser {
   username: String!
   email: String!
   password: String!
+  link_avatar: String!
 }
 
 input AuthInput {

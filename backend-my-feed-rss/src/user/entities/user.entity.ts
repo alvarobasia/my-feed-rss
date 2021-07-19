@@ -16,4 +16,7 @@ export class User {
 
   @Field()
   email: string;
+
+  @Field()
+  link_avatar: string;
 }

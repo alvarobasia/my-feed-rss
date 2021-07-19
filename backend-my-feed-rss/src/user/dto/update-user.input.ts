@@ -1,5 +1,5 @@
 import { CreateUser } from './create-user.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType } from '@nestjs/graphql';
 import { Contains, IsString, MaxLength, IsNumber } from 'class-validator';
 
 @InputType()
@@ -27,4 +27,8 @@ export class UpdateUser extends PartialType(CreateUser) {
   @IsString()
   @Field()
   password: string;
+
+  @IsString()
+  @Field()
+  link_avatar: string;
 }
