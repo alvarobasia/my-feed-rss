@@ -4,6 +4,9 @@ import { User } from './entities/user.entity';
 import { CreateUser } from './dto/create-user.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/auth.guard';
+import { AddLink } from './dto/add-new-link.input';
+import { RssLink } from './entities/rsslink.entity';
+import { UserContext } from 'src/decorators/user-decorator';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -25,10 +28,15 @@ export class UserResolver {
     return await this.userService.getAllUsers();
   }
 
-  // @Query(() => User, { name: 'user' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.userService.findOne(id);
-  // }
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => RssLink)
+  async addLink(
+    @Args('addLink') link: AddLink,
+    @UserContext() user: User,
+  ): Promise<RssLink> {
+    const rss = await this.userService.createNewLink(link, user);
+    return rss;
+  }
 
   // @Mutation(() => User)
   // updateUser(@Args('UpdateUser') updateUserInput: UpdateUserInput) {

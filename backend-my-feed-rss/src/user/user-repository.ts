@@ -4,6 +4,7 @@ import { CreateUser } from './dto/create-user.input';
 import { User } from './entities/user.entity';
 import { v4 as uuid } from 'uuid';
 import { closeConnection, db } from 'db-connection';
+import { RssLink } from './entities/rsslink.entity';
 @Injectable()
 export class UserRepository {
   async createUser(user: CreateUser): Promise<User> {
@@ -45,6 +46,23 @@ export class UserRepository {
     await closeConnection();
 
     return result.rows[0];
+  }
+
+  async createNewLink(rssLink: RssLink) {
+    const client = db();
+
+    const text =
+      'insert into rsslink(name, link, added_at, id_user) values ($1, $2, $3, $4)';
+    const values = [
+      rssLink.name,
+      rssLink.link,
+      rssLink.added_at,
+      rssLink.user.id,
+    ];
+
+    await client.query(text, values);
+
+    return;
   }
 
   async getAllUsers(): Promise<User[]> {
