@@ -11,3 +11,12 @@ export const LOGIN = gql`
     }
   }
 `
+
+export const ADD_LINK = gql`
+  mutation addLink($link: String!, $name: String!) {
+    addLink(addLink: { link: $link, name: $name }) {
+      link
+      name
+    }
+  }
+`
