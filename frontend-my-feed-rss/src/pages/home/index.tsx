@@ -1,15 +1,20 @@
 import { GetServerSideProps } from 'next'
+import LastFeed from '../../components/LastFeed'
 import RssLink from '../../components/RssLink'
-import SideBar from '../../components/SideBar'
-import { HomeDiv, Content } from './styles'
+// import SideBar from '../../components/SideBar'
+import { HomeDiv, ContentHeader, Main } from './styles'
+
 export default function Home() {
   return (
     <>
       <HomeDiv>
-        <SideBar />
-        <Content>
+        {/* <SideBar /> */}
+        <ContentHeader>
           <RssLink />
-        </Content>
+        </ContentHeader>
+        <Main>
+          <LastFeed />
+        </Main>
       </HomeDiv>
     </>
   )
