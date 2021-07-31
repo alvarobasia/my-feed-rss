@@ -6,6 +6,7 @@ import { AnimateSharedLayout } from 'framer-motion'
 import client from '../../apollo-client'
 import { ApolloProvider } from '@apollo/client'
 import { AuthProvider } from '../contexts/AuthContext'
+import 'react-toastify/dist/ReactToastify.css'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
