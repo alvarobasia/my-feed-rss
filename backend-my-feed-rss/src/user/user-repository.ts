@@ -11,7 +11,7 @@ export class UserRepository {
     const id = uuid();
     const client = db();
     const text =
-      'insert into users(id, name,email, password, username, link_avatar ) values ($1, $2, $3, $4, $5)';
+      'insert into users(id, name,email, password, username, link_avatar ) values ($1, $2, $3, $4, $5, $6)';
     const values = [
       id,
       user.name,
@@ -52,7 +52,7 @@ export class UserRepository {
     const client = db();
 
     const text =
-      'insert into rsslink(name, link, added_at, id_user) values ($1, $2, $3, $4)';
+      'insert into rsslinks(name, link, added_at, id_user) values ($1, $2, $3, $4)';
     const values = [
       rssLink.name,
       rssLink.link,
