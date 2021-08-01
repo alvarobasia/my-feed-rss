@@ -27,9 +27,22 @@ type AuthType {
   token: String!
 }
 
+type ElementFeed {
+  title: String!
+  link: String!
+  isoDate: String!
+  content: String!
+}
+
+type Feed {
+  elements: [ElementFeed!]!
+  rssLink: RssLink!
+}
+
 type Query {
   getUserByEmail(email: String!): User!
   getAllUsers: [User!]!
+  getFeed: [Feed!]!
 }
 
 type Mutation {
