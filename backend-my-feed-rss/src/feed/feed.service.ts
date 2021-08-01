@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/user/entities/user.entity';
-import { getFeed } from 'src/utils/rss-parcer';
+import { getFeed } from 'src/utils/rss-parser';
 import { Feed } from './entities/feed.entity';
 import { FeedRepository } from './feed-repository';
 
