@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { FeedModule } from './feed/feed.module';
 @Module({
   imports: [
     GraphQLModule.forRoot({
@@ -19,6 +20,8 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot(),
     UserModule,
     AuthModule,
+    FeedModule,
   ],
+  providers: [],
 })
 export class AppModule {}
