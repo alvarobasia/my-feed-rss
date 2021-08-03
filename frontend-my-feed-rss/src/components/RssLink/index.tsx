@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
 import { RssInput, RssAdd } from './styles'
-import { BsPlus } from 'react-icons/bs'
 import { useMutation } from '@apollo/client'
-import { ADD_LINK } from '../../mutations/login'
+import { ADD_LINK } from '../../mutations/user'
 import { ToastContainer, toast } from 'react-toastify'
-import dynamic from 'next/dynamic'
 
 export default function RssLink() {
-  const ReactTooltip = dynamic(() => import('react-tooltip'), {
-    ssr: false
-  })
   const [addLink] = useMutation(ADD_LINK, {
     onError: () => {
       toast.error(`Não foi possível adicionar o link ${name}.`)
@@ -41,10 +36,7 @@ export default function RssLink() {
         value={link}
         onChange={(e) => setLink(e.target.value)}
       />
-      <RssAdd onClick={() => handleAdd()} data-tip="Adicionar">
-        <BsPlus size={35} />
-      </RssAdd>
-      <ReactTooltip place="top" backgroundColor={'#FEBB45'} effect="solid" />
+      <RssAdd onClick={() => handleAdd()}>Adicionar</RssAdd>
       <ToastContainer autoClose={5000} position={'bottom-center'} />
     </>
   )
