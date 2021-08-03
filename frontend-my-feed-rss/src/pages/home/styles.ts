@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const HomeDiv = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
   height: 100%;
 `
@@ -10,16 +10,35 @@ export const HomeDiv = styled.div`
 export const ContentHeader = styled.div`
   display: flex;
   width: 100%;
-  height: 10vh;
+  margin-top: 3px;
+  height: auto;
   justify-content: center;
   align-items: center;
 `
 
 export const Main = styled.div`
-  width: 100%;
-  height: 90vh;
+  width: 60%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+`
+export const Aside = styled.div`
+  width: 40%;
+  height: 100vh;
+  background-color: ${(props) => props.theme.colors.primaryLight};
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  h2 {
+    margin-top: 22px;
+    padding: 0;
+    font-size: 18px;
+    font-family: Lato, sans-serif;
+    color: #fff;
+    font-weight: 500;
+  }
 `
