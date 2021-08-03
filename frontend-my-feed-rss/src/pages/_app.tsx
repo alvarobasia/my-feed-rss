@@ -6,6 +6,7 @@ import { AnimateSharedLayout } from 'framer-motion'
 import client from '../../apollo-client'
 import { ApolloProvider } from '@apollo/client'
 import { AuthProvider } from '../contexts/AuthContext'
+import { FeedProvider } from '../contexts/FeedContext'
 import 'react-toastify/dist/ReactToastify.css'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -13,10 +14,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <AnimateSharedLayout>
         <ApolloProvider client={client}>
           <AuthProvider>
-            <ThemeProvider theme={light}>
-              <GlobalStyle />
-              <Component {...pageProps} />
-            </ThemeProvider>
+            <FeedProvider>
+              <ThemeProvider theme={light}>
+                <GlobalStyle />
+                <Component {...pageProps} />
+              </ThemeProvider>
+            </FeedProvider>
           </AuthProvider>
         </ApolloProvider>
       </AnimateSharedLayout>
