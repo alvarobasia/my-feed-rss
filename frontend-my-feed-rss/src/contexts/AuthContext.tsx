@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client'
 import { createContext, PropsWithChildren, useState } from 'react'
-import { LOGIN } from '../mutations/login'
+import { LOGIN } from '../mutations/user'
 import { setCookie } from 'nookies'
 
 type AuthContextType = {
