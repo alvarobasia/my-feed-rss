@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { MdPublic } from 'react-icons/md'
+import { FaUserAlt } from 'react-icons/fa'
 
 export const HomeDiv = styled.div`
   display: flex;
@@ -26,6 +28,7 @@ export const Main = styled.div`
 `
 export const Aside = styled.div`
   width: 40%;
+  position: relative;
   height: 100vh;
   background-color: ${(props) => props.theme.colors.primaryLight};
   display: flex;
@@ -41,4 +44,12 @@ export const Aside = styled.div`
     color: #fff;
     font-weight: 500;
   }
+`
+
+export const StylePub = styled(MdPublic)`
+  font-size: 30px;
+`
+
+export const StyleUser = styled(FaUserAlt)`
+  font-size: 30px;
 `
