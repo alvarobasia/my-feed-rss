@@ -6,7 +6,10 @@ export const LOGIN = gql`
       token
       user {
         id
+        name
         username
+        email
+        link_avatar
       }
     }
   }

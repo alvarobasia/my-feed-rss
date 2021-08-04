@@ -14,6 +14,9 @@ type AuthContextType = {
 type User = {
   id: string
   username: string
+  name: string
+  email: string
+  linkAvatar: string
 }
 
 export const AuthContext = createContext({} as AuthContextType)
@@ -29,7 +32,7 @@ export function AuthProvider(props: PropsWithChildren<any>) {
     },
     onCompleted: ({ login }) => {
       setCookie(undefined, 'my-feed-rss-token', login.token)
-      setUser(login.user)
+      setUser({ ...login.user, linkAvatar: login.user.link_avatar })
     }
   })
 
