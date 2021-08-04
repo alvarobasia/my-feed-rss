@@ -22,11 +22,6 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type AuthType {
-  user: User!
-  token: String!
-}
-
 type ElementFeed {
   title: String!
   link: String!
@@ -39,9 +34,15 @@ type Feed {
   rssLink: RssLink!
 }
 
+type AuthType {
+  user: User!
+  token: String!
+}
+
 type Query {
   getUserByEmail(email: String!): User!
   getAllUsers: [User!]!
+  getUserLinks: [RssLink!]!
   getFeed: [Feed!]!
 }
 
