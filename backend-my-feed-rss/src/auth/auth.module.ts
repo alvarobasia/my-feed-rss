@@ -5,9 +5,11 @@ import { UserService } from 'src/user/user.service';
 import { UserRepository } from 'src/user/user-repository';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { FeedModule } from 'src/feed/feed.module';
 
 @Module({
   imports: [
+    FeedModule,
     JwtModule.registerAsync({
       useFactory: () => ({
         secret: process.env.JWT_SECRET,
