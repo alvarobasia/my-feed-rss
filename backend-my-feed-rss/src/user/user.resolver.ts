@@ -38,13 +38,9 @@ export class UserResolver {
     return rss;
   }
 
-  // @Mutation(() => User)
-  // updateUser(@Args('UpdateUser') updateUserInput: UpdateUserInput) {
-  //   return this.userService.update(updateUserInput.id, updateUserInput);
-  // }
-
-  // @Mutation(() => User)
-  // removeUser(@Args('id', { type: () => Int }) id: number) {
-  //   return this.userService.remove(id);
-  // }
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [RssLink])
+  async getUserLinks(@UserContext() user: User): Promise<RssLink[]> {
+    return await this.userService.getUserLinks(user);
+  }
 }

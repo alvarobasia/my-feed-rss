@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { FeedRepository } from 'src/feed/feed-repository';
 import { hashPassword } from 'src/utils/hash-password';
 import { AddLink } from './dto/add-new-link.input';
 import { CreateUser } from './dto/create-user.input';
@@ -8,7 +9,10 @@ import { UserRepository } from './user-repository';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly feedRepository: FeedRepository,
+  ) {}
   async create(createUser: CreateUser): Promise<User> {
     const hashedPassword = await hashPassword(createUser.password);
     const userWithHashPassword: CreateUser = {
@@ -42,5 +46,9 @@ export class UserService {
     const rss = RssLink.toEntity(link, user);
     await this.userRepository.createNewLink(rss);
     return rss;
+  }
+
+  async getUserLinks(user: User): Promise<RssLink[]> {
+    return await this.feedRepository.getAllLinksFromUser(user);
   }
 }

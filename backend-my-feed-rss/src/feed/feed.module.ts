@@ -5,5 +5,6 @@ import { FeedRepository } from './feed-repository';
 
 @Module({
   providers: [FeedResolver, FeedService, FeedRepository],
+  exports: [FeedRepository],
 })
 export class FeedModule {}
