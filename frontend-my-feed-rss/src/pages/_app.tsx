@@ -8,6 +8,7 @@ import { ApolloProvider } from '@apollo/client'
 import { AuthProvider } from '../contexts/AuthContext'
 import { FeedProvider } from '../contexts/FeedContext'
 import 'react-toastify/dist/ReactToastify.css'
+import '../../styles/draft.css'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
