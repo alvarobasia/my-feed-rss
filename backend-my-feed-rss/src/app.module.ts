@@ -4,6 +4,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { FeedModule } from './feed/feed.module';
+import { PublisherModule } from './publisher/publisher.module';
 @Module({
   imports: [
     GraphQLModule.forRoot({
@@ -21,6 +22,7 @@ import { FeedModule } from './feed/feed.module';
     UserModule,
     AuthModule,
     FeedModule,
+    PublisherModule,
   ],
   providers: [],
 })
