@@ -51,4 +51,8 @@ export class UserService {
   async getUserLinks(user: User): Promise<RssLink[]> {
     return await this.feedRepository.getAllLinksFromUser(user);
   }
+
+  async followUser(user: User, followingId: string): Promise<User[]> {
+    return await this.userRepository.followUser(user, followingId);
+  }
 }

@@ -7,6 +7,7 @@ import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { AddLink } from './dto/add-new-link.input';
 import { RssLink } from './entities/rsslink.entity';
 import { UserContext } from 'src/decorators/user-decorator';
+import { AddUserFollow } from './dto/add_user-follow-dto';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -36,6 +37,15 @@ export class UserResolver {
   ): Promise<RssLink> {
     const rss = await this.userService.createNewLink(link, user);
     return rss;
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => [User])
+  async followUser(
+    @Args('id') userFollow: AddUserFollow,
+    @UserContext() user: User,
+  ): Promise<User[]> {
+    return await this.userService.followUser(user, userFollow.id);
   }
 
   @UseGuards(GqlAuthGuard)

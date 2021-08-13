@@ -74,4 +74,22 @@ export class UserRepository {
 
     return result.rows;
   }
+
+  async followUser(follower: User, followingId: string): Promise<User[]> {
+    const client = db();
+    const id = uuid();
+    const text =
+      'insert into follow_user (id, id_following, id_follower) values ($1, $2, $3)';
+    const values = [id, followingId, follower.id];
+    await client.query(text, values);
+
+    const result = await client.query(
+      'SELECT * from users u inner join follow_user f on u.id = f.id_following where u.id in (select l.id_following from follow_user l where  l.id_follower = $1)',
+      [follower.id],
+    );
+
+    await closeConnection();
+
+    return result.rows;
+  }
 }
