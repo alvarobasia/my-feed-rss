@@ -89,9 +89,7 @@ type Mutation {
   unfollow(id: AddUserFollow!): [User!]!
   login(login: AuthInput!): AuthType!
   createPublisher(createPublisherInput: CreatePublisherInput!): Publisher!
-  createPublication(
-    createPublicationInput: CreatePublicationInput!
-  ): Publication!
+  createPublication(createPublicationInput: CreatePublicationInput!): Publication!
   followPublisher(id: AddPublisherFollow!): [Publisher!]!
   updatePub(publication: UpdatePublicationInput!): Publication!
   unfollowPublisher(id: AddPublisherFollow!): [Publisher!]!
