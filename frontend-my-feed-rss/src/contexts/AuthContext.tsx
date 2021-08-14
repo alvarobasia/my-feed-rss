@@ -2,6 +2,7 @@ import { useMutation } from '@apollo/client'
 import { createContext, PropsWithChildren, useState } from 'react'
 import { LOGIN } from '../mutations/user'
 import { setCookie } from 'nookies'
+import Router from 'next/router'
 
 type AuthContextType = {
   isAuthenticated: boolean
@@ -11,7 +12,7 @@ type AuthContextType = {
   singIn: (email: string, password: string) => void
 }
 
-type User = {
+export type User = {
   id: string
   username: string
   name: string
@@ -33,6 +34,7 @@ export function AuthProvider(props: PropsWithChildren<any>) {
     onCompleted: ({ login }) => {
       setCookie(undefined, 'my-feed-rss-token', login.token)
       setUser({ ...login.user, linkAvatar: login.user.link_avatar })
+      Router.push('/home')
     }
   })
 

@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { HomeButtonStyle } from './styles'
-
+import Link from 'next/link'
 type HomeButtonProps = {
   title: string
   path: string
@@ -8,12 +8,15 @@ type HomeButtonProps = {
 
 export default function HomeButton({
   title,
-  children
+  children,
+  path
 }: PropsWithChildren<HomeButtonProps>) {
   return (
-    <HomeButtonStyle>
-      {children}
-      <span>{title}</span>
-    </HomeButtonStyle>
+    <Link href={path}>
+      <HomeButtonStyle>
+        {children}
+        <span>{title}</span>
+      </HomeButtonStyle>
+    </Link>
   )
 }

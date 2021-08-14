@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CardSite from '../CardsSite'
+import Link from 'next/link'
 import MinorCards from '../MinorCards'
 import Footer from '../SiteFooter'
 import {
@@ -49,7 +50,7 @@ export default function Main() {
               }}
               whileHover={{ scale: 1.08, boxShadow: '3px 3px 39px #0066B3' }}
             >
-              Se registre agora
+              <Link href="/newuser">Se registre agora</Link>
             </StyledButton>
           </div>
 

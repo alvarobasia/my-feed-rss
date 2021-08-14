@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next'
+import Link from 'next/link'
 import React, { useState, useContext } from 'react'
 import {
   DivInfo,
@@ -101,7 +102,10 @@ export default function loginPage() {
             duration: 1
           }}
         >
-          Não possui conta? <span>Se registre agora</span>
+          Não possui conta?{' '}
+          <span>
+            <Link href="/newuser">Se registre agora</Link>
+          </span>
         </DivInfo>
       </FormLogin>
       <Paper />
