@@ -9,7 +9,20 @@ import {
 import { PubCardContainer } from './styles'
 import PubCard from '../../components/PubCard'
 import PubPanel from '../../components/PubPanel'
+import { AuthContext, User } from '../../contexts/AuthContext'
+import { useContext, useState } from 'react'
+
+export type PubType = {
+  name: string
+  avatarLink: string
+  owner: User | null
+  members: string[]
+  followers: string[]
+}
+
 export default function Pub() {
+  const [currentPub, setCurrentPub] = useState<PubType | null>(null)
+  const { user } = useContext(AuthContext)
   return (
     <Container>
       <Aside>
@@ -20,7 +33,16 @@ export default function Pub() {
           </SearchButton>
         </ContainerHead>
         <PubCardContainer>
-          <PubCard />
+          <PubCard
+            pub={{
+              avatarLink:
+                'https://miro.medium.com/fit/c/64/64/1*TyRLQdZO7NdPATwSeut8gg.png',
+              name: 'Bett',
+              owner: user,
+              followers: [],
+              members: []
+            }}
+          />
         </PubCardContainer>
       </Aside>
       <PubPanel />

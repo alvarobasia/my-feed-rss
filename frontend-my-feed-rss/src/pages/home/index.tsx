@@ -23,10 +23,16 @@ export default function Home() {
             <RssLink />
           </ContentHeader>
           <Links />
-          <HomeButton path="/" title="Procurar publicadoras">
+          <HomeButton path="/pub" title="Procurar publicadoras">
+            <StylePub />
+          </HomeButton>{' '}
+          <HomeButton path="/pub" title="Criar publicadora">
             <StylePub />
           </HomeButton>
-          <HomeButton path="/" title="Procurar usuário">
+          <HomeButton path="/pub" title="Suas publicadoras">
+            <StylePub />
+          </HomeButton>
+          <HomeButton path="/users" title="Procurar usuário">
             <StyleUser />
           </HomeButton>
           <UserHeadBar />
