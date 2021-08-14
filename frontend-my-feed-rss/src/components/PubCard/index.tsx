@@ -1,20 +1,20 @@
 import React from 'react'
+import { PubType } from '../../pages/pub'
 import { UserCardStyle, Avatar, StyledName, InfosDiv, Infos, SeeButton } from './styles'
-
-export default function PubCard() {
+type PubCardProps = {
+  pub: PubType
+}
+export default function PubCard({ pub }: PubCardProps) {
   return (
     <UserCardStyle>
       <Avatar>
-        <img
-          src="https://miro.medium.com/fit/c/64/64/1*TyRLQdZO7NdPATwSeut8gg.png"
-          width="100%"
-        />
+        <img src={pub.avatarLink} width="100%" />
       </Avatar>
       <InfosDiv>
-        <StyledName>Coding</StyledName>
+        <StyledName>{pub.name}</StyledName>
         <Infos>
-          <p>Seguidores: 0</p>
-          <p>Membros: 0</p>
+          <p>Seguidores: {pub.followers.length}</p>
+          <p>Membros: {pub.members.length}</p>
         </Infos>
       </InfosDiv>
       <SeeButton>Ver mais</SeeButton>
