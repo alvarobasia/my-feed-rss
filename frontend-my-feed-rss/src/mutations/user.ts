@@ -23,3 +23,25 @@ export const ADD_LINK = gql`
     }
   }
 `
+
+export const ADD_USER = gql`
+  mutation createUser(
+    $name: String!
+    $username: String!
+    $email: String!
+    $password: String!
+    $link: String!
+  ) {
+    createUser(
+      createUser: {
+        name: $name
+        username: $username
+        email: $email
+        password: $password
+        link_avatar: $link
+      }
+    ) {
+      id
+    }
+  }
+`
