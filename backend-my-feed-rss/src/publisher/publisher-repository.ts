@@ -55,68 +55,43 @@ export class PublisherRepository {
     return result.rows[0];
   }
 
-  //   async getUserByEmail(email: string): Promise<User> {
-  //     const client = db();
-  //     const text = 'select * from users where email=$1';
-  //     const result = await client.query(text, [email]);
+  async followPublisher(
+    follower: User,
+    followingId: string,
+  ): Promise<Publisher[]> {
+    const client = db();
+    const id = uuid();
+    const text =
+      'insert into follow_publisher (id, id_publisher, id_user) values ($1, $2, $3)';
+    const values = [id, followingId, follower.id];
+    await client.query(text, values);
 
-  //     await closeConnection();
+    const result = await client.query(
+      'SELECT p.* from publisher p, follow_publisher f where p.id = f.id_publisher and f.id_user = $1',
+      [follower.id],
+    );
 
-  //     return result.rows[0];
-  //   }
+    await closeConnection();
 
-  //   async getUserById(id: string): Promise<User> {
-  //     const client = db();
-  //     const text = 'select * from users where id=$1';
-  //     const result = await client.query(text, [id]);
+    return result.rows;
+  }
 
-  //     await closeConnection();
+  async searchPublisher(
+    user: User,
+    pattern: string,
+  ): Promise<{ publishers: Publisher[]; follow: Publisher[] }> {
+    const client = db();
+    const text = 'select * from publisher where name like $1';
+    const values = [`%${pattern}%`];
+    const publishers = await client.query(text, values);
+    const textFollow =
+      'SELECT p.* from publisher p, follow_publisher f where p.id = f.id_publisher and f.id_user = $1';
+    const valuesFollow = [user.id];
+    const follow = await client.query(textFollow, valuesFollow);
+    console.log(publishers);
 
-  //     return result.rows[0];
-  //   }
+    await closeConnection();
 
-  //   async createNewLink(rssLink: RssLink) {
-  //     const client = db();
-
-  //     const text =
-  //       'insert into rsslinks(name, link, added_at, id_user) values ($1, $2, $3, $4)';
-  //     const values = [
-  //       rssLink.name,
-  //       rssLink.link,
-  //       rssLink.added_at,
-  //       rssLink.user.id,
-  //     ];
-
-  //     await client.query(text, values);
-
-  //     return;
-  //   }
-
-  //   async getAllUsers(): Promise<User[]> {
-  //     const client = db();
-  //     const text = 'select * from users';
-  //     const result = await client.query(text);
-
-  //     await closeConnection();
-
-  //     return result.rows;
-  //   }
-
-  //   async followUser(follower: User, followingId: string): Promise<User[]> {
-  //     const client = db();
-  //     const id = uuid();
-  //     const text =
-  //       'insert into follow_user (id, id_following, id_follower) values ($1, $2, $3)';
-  //     const values = [id, followingId, follower.id];
-  //     await client.query(text, values);
-
-  //     const result = await client.query(
-  //       'SELECT * from users u inner join follow_user f on u.id = f.id_following where u.id in (select l.id_following from follow_user l where  l.id_follower = $1)',
-  //       [follower.id],
-  //     );
-
-  //     await closeConnection();
-
-  //     return result.rows;
-  //   }
+    return { publishers: publishers.rows, follow: follow.rows };
+  }
 }

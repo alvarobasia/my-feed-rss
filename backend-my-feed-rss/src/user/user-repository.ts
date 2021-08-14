@@ -92,4 +92,22 @@ export class UserRepository {
 
     return result.rows;
   }
+
+  async searchUser(
+    user: User,
+    pattern: string,
+  ): Promise<{ user: User[]; follow: User[] }> {
+    const client = db();
+    const text = 'select * from users where name like $1';
+    const values = [`%${pattern}%`];
+    const users = await client.query(text, values);
+    const textFollow =
+      'SELECT * from users u inner join follow_user f on u.id = f.id_following where u.id in (select l.id_following from follow_user l where  l.id_follower = $1)';
+    const valuesFollow = [user.id];
+    const follow = await client.query(textFollow, valuesFollow);
+
+    await closeConnection();
+
+    return { user: users.rows, follow: follow.rows };
+  }
 }

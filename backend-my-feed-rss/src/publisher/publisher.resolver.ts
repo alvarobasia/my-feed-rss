@@ -7,6 +7,8 @@ import { User } from 'src/user/entities/user.entity';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { CreatePublicationInput } from './dto/create-publication.input';
+import { AddPublisherFollow } from './dto/add_publisher-follow-dto';
+import { PublisherFollow } from './dto/search-response-publisher.input copy';
 // import { UpdatePublisherInput } from './dto/update-publisher.input';
 
 @Resolver(() => Publisher)
@@ -35,23 +37,24 @@ export class PublisherResolver {
     );
   }
 
-  // @Query(() => [Publisher], { name: 'publisher' })
-  // findAll() {
-  //   return this.publisherService.findAll();
-  // }
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => [Publisher])
+  async followPublisher(
+    @Args('id') publisherFollow: AddPublisherFollow,
+    @UserContext() user: User,
+  ): Promise<Publisher[]> {
+    return await this.publisherService.followPublisher(
+      user,
+      publisherFollow.id,
+    );
+  }
 
-  // @Query(() => Publisher, { name: 'publisher' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.publisherService.findOne(id);
-  // }
-
-  // @Mutation(() => Publisher)
-  // updatePublisher(@Args('updatePublisherInput') updatePublisherInput: UpdatePublisherInput) {
-  //   return this.publisherService.update(updatePublisherInput.id, updatePublisherInput);
-  // }
-
-  // @Mutation(() => Publisher)
-  // removePublisher(@Args('id', { type: () => Int }) id: number) {
-  //   return this.publisherService.remove(id);
-  // }
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [PublisherFollow])
+  async searchPublisher(
+    @UserContext() user: User,
+    @Args('pattern') pattern: string,
+  ): Promise<PublisherFollow[]> {
+    return await this.publisherService.searchPublisher(user, pattern);
+  }
 }

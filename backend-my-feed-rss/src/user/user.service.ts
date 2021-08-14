@@ -3,6 +3,7 @@ import { FeedRepository } from 'src/feed/feed-repository';
 import { hashPassword } from 'src/utils/hash-password';
 import { AddLink } from './dto/add-new-link.input';
 import { CreateUser } from './dto/create-user.input';
+import { UserFollow } from './dto/search-response-user.input copy';
 import { RssLink } from './entities/rsslink.entity';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user-repository';
@@ -54,5 +55,23 @@ export class UserService {
 
   async followUser(user: User, followingId: string): Promise<User[]> {
     return await this.userRepository.followUser(user, followingId);
+  }
+
+  async searchUser(user: User, pattern: string): Promise<UserFollow[]> {
+    const { follow, user: userResult } = await this.userRepository.searchUser(
+      user,
+      pattern,
+    );
+    const result: UserFollow[] = [];
+
+    userResult.forEach((u) => {
+      if (u.id !== user.id)
+        result.push({
+          ...u,
+          follow: follow.map((f: any) => f.id_following).includes(u.id),
+        });
+    });
+
+    return result;
   }
 }

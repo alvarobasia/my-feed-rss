@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { User } from 'src/user/entities/user.entity';
 import { CreatePublicationInput } from './dto/create-publication.input';
 import { CreatePublisherInput } from './dto/create-publisher.input';
+import { PublisherFollow } from './dto/search-response-publisher.input copy';
+import { Publisher } from './entities/publisher.entity';
 import { PublisherRepository } from './publisher-repository';
 // import { UpdatePublisherInput } from './dto/update-publisher.input';
 
@@ -25,19 +27,25 @@ export class PublisherService {
     );
   }
 
-  // findAll() {
-  //   return `This action returns all publisher`;
-  // }
+  async followPublisher(user: User, followingId: string): Promise<Publisher[]> {
+    return await this.publisherRepository.followPublisher(user, followingId);
+  }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} publisher`;
-  // }
+  async searchPublisher(
+    user: User,
+    pattern: string,
+  ): Promise<PublisherFollow[]> {
+    const { follow, publishers } =
+      await this.publisherRepository.searchPublisher(user, pattern);
+    const result: PublisherFollow[] = [];
 
-  // update(id: number, updatePublisherInput: UpdatePublisherInput) {
-  //   return `This action updates a #${id} publisher`;
-  // }
+    publishers.forEach((p) => {
+      result.push({
+        ...p,
+        follow: follow.map((f: Publisher) => f.id).includes(p.id),
+      });
+    });
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} publisher`;
+    return result;
+  }
 }
-// }

@@ -8,6 +8,7 @@ import { AddLink } from './dto/add-new-link.input';
 import { RssLink } from './entities/rsslink.entity';
 import { UserContext } from 'src/decorators/user-decorator';
 import { AddUserFollow } from './dto/add_user-follow-dto';
+import { UserFollow } from './dto/search-response-user.input copy';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -52,5 +53,14 @@ export class UserResolver {
   @Query(() => [RssLink])
   async getUserLinks(@UserContext() user: User): Promise<RssLink[]> {
     return await this.userService.getUserLinks(user);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [UserFollow])
+  async searchUser(
+    @UserContext() user: User,
+    @Args('pattern') pattern: string,
+  ): Promise<UserFollow[]> {
+    return await this.userService.searchUser(user, pattern);
   }
 }
