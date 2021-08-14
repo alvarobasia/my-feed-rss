@@ -8,8 +8,6 @@ import {
   ToolBar,
   Content,
   Logo,
-  FavoriteIcon,
-  ReadLater,
   External,
   NameTag,
   Actions,
@@ -37,14 +35,14 @@ export default function Card({ item, rssName }: CardProps) {
         <p>{item.content}</p>
       </Content>
       <ToolBar>
-        <Actions>
+        {/* <Actions>
           <FavoriteIcon />
           <span>Favoritar</span>
-        </Actions>
-        <Actions>
+        </Actions> */}
+        {/* <Actions>
           <ReadLater />
           <span>Ler mais tarde</span>
-        </Actions>
+        </Actions> */}
         <Actions>
           <a
             style={{ display: 'flex', alignItems: 'center' }}
