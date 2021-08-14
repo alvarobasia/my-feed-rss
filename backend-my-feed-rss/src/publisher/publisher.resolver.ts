@@ -9,6 +9,8 @@ import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { CreatePublicationInput } from './dto/create-publication.input';
 import { AddPublisherFollow } from './dto/add_publisher-follow-dto';
 import { PublisherFollow } from './dto/search-response-publisher.input copy';
+import { Publication } from './entities/publication.entity';
+import { UpdatePublicationInput } from './dto/update-publication.input copy';
 // import { UpdatePublisherInput } from './dto/update-publisher.input';
 
 @Resolver(() => Publisher)
@@ -25,7 +27,7 @@ export class PublisherResolver {
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => Publisher)
+  @Mutation(() => Publication)
   async createPublication(
     @UserContext() user: User,
     @Args('createPublicationInput')
@@ -56,5 +58,22 @@ export class PublisherResolver {
     @Args('pattern') pattern: string,
   ): Promise<PublisherFollow[]> {
     return await this.publisherService.searchPublisher(user, pattern);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Publication)
+  async updatePub(
+    @Args('publication') publication: UpdatePublicationInput,
+  ): Promise<Publication> {
+    return await this.publisherService.updatePublication(publication);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => [Publisher])
+  async unfollowPublisher(
+    @UserContext() user: User,
+    @Args('id') pubFollow: AddPublisherFollow,
+  ): Promise<Publisher[]> {
+    return await this.publisherService.unfollow(user, pubFollow.id);
   }
 }

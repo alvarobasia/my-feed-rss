@@ -110,4 +110,41 @@ export class UserRepository {
 
     return { user: users.rows, follow: follow.rows };
   }
+
+  async updateUser(user: User): Promise<User> {
+    const client = db();
+    console.log(user);
+
+    const text =
+      'update users set name=$1, username=$2, email=$3, link_avatar=$4 where id=$5';
+    const values = [
+      user.name,
+      user.username,
+      user.email,
+      user.link_avatar,
+      user.id,
+    ];
+    await client.query(text, values);
+    const result = await client.query('SELECT * from users where id=$1', [
+      user.id,
+    ]);
+    await closeConnection();
+
+    return result.rows[0];
+  }
+
+  async unfollow(user: User, id: string): Promise<User[]> {
+    const client = db();
+
+    const text = 'delete  from follow_user where id_following=$1';
+    const values = [id];
+    await client.query(text, values);
+    const result = await client.query(
+      'SELECT * from users u inner join follow_user f on u.id = f.id_following where u.id in (select l.id_following from follow_user l where  l.id_follower = $1)',
+      [user.id],
+    );
+    await closeConnection();
+
+    return result.rows;
+  }
 }

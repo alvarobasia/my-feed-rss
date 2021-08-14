@@ -63,6 +63,15 @@ type PublisherFollow {
   follow: Boolean!
 }
 
+type Publication {
+  id: String!
+  title: String!
+  description: String!
+  content: String!
+  idPublisher: String!
+  idUser: String!
+}
+
 type Query {
   getUserByEmail(email: String!): User!
   getAllUsers: [User!]!
@@ -76,10 +85,14 @@ type Mutation {
   createUser(createUser: CreateUser!): User!
   addLink(addLink: AddLink!): RssLink!
   followUser(id: AddUserFollow!): [User!]!
+  updateUser(user: UpdateUser!): User!
+  unfollow(id: AddUserFollow!): [User!]!
   login(login: AuthInput!): AuthType!
   createPublisher(createPublisherInput: CreatePublisherInput!): Publisher!
-  createPublication(createPublicationInput: CreatePublicationInput!): Publisher!
+  createPublication(createPublicationInput: CreatePublicationInput!): Publication!
   followPublisher(id: AddPublisherFollow!): [Publisher!]!
+  updatePub(publication: UpdatePublicationInput!): Publication!
+  unfollowPublisher(id: AddPublisherFollow!): [Publisher!]!
 }
 
 input CreateUser {
@@ -97,6 +110,13 @@ input AddLink {
 
 input AddUserFollow {
   id: String!
+}
+
+input UpdateUser {
+  name: String!
+  username: String!
+  email: String!
+  link_avatar: String!
 }
 
 input AuthInput {
@@ -118,4 +138,11 @@ input CreatePublicationInput {
 
 input AddPublisherFollow {
   id: String!
+}
+
+input UpdatePublicationInput {
+  id: String!
+  title: String!
+  description: String!
+  content: String!
 }

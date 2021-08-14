@@ -3,6 +3,8 @@ import { User } from 'src/user/entities/user.entity';
 import { CreatePublicationInput } from './dto/create-publication.input';
 import { CreatePublisherInput } from './dto/create-publisher.input';
 import { PublisherFollow } from './dto/search-response-publisher.input copy';
+import { UpdatePublicationInput } from './dto/update-publication.input copy';
+import { Publication } from './entities/publication.entity';
 import { Publisher } from './entities/publisher.entity';
 import { PublisherRepository } from './publisher-repository';
 // import { UpdatePublisherInput } from './dto/update-publisher.input';
@@ -47,5 +49,15 @@ export class PublisherService {
     });
 
     return result;
+  }
+
+  async updatePublication(
+    publication: UpdatePublicationInput,
+  ): Promise<Publication> {
+    return await this.publisherRepository.updatePub(publication);
+  }
+
+  async unfollow(user: User, id: string): Promise<Publisher[]> {
+    return await this.publisherRepository.unfollow(user, id);
   }
 }
