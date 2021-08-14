@@ -7,6 +7,7 @@ import { Publisher } from './entities/publisher.entity';
 import { User } from 'src/user/entities/user.entity';
 import { CreatePublicationInput } from './dto/create-publication.input';
 import { Publication } from './entities/publication.entity';
+import { UpdatePublicationInput } from './dto/update-publication.input copy';
 
 @Injectable()
 export class PublisherRepository {
@@ -93,5 +94,32 @@ export class PublisherRepository {
     await closeConnection();
 
     return { publishers: publishers.rows, follow: follow.rows };
+  }
+
+  async updatePub(
+    publicationUpdate: UpdatePublicationInput,
+  ): Promise<Publication> {
+    const client = db();
+    const result = await client.query('select * from publication where id=$1', [
+      publicationUpdate.id,
+    ]);
+    const pub = result.rows[0];
+
+    const text =
+      'update publication set title=$1, description=$2, content=$3 where id=$4';
+    const values = [
+      publicationUpdate.title,
+      publicationUpdate.description,
+      publicationUpdate.content,
+      pub.id,
+    ];
+    await client.query(text, values);
+
+    const final = await client.query('select * from publication where id=$1', [
+      publicationUpdate.id,
+    ]);
+    await closeConnection();
+
+    return final.rows[0];
   }
 }

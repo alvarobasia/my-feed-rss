@@ -3,12 +3,7 @@ import { InputType, Field, PartialType } from '@nestjs/graphql';
 import { Contains, IsString, MaxLength, IsNumber } from 'class-validator';
 
 @InputType()
-export class UpdateUser extends PartialType(CreateUser) {
-  @IsNumber()
-  @MaxLength(30)
-  @Field()
-  id: number;
-
+export class UpdateUser {
   @IsString()
   @MaxLength(30)
   @Field()
@@ -23,10 +18,6 @@ export class UpdateUser extends PartialType(CreateUser) {
   @Contains('@')
   @Field()
   email: string;
-
-  @IsString()
-  @Field()
-  password: string;
 
   @IsString()
   @Field()

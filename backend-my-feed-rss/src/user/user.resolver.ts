@@ -9,6 +9,7 @@ import { RssLink } from './entities/rsslink.entity';
 import { UserContext } from 'src/decorators/user-decorator';
 import { AddUserFollow } from './dto/add_user-follow-dto';
 import { UserFollow } from './dto/search-response-user.input copy';
+import { UpdateUser } from './dto/update-user.input';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -62,5 +63,14 @@ export class UserResolver {
     @Args('pattern') pattern: string,
   ): Promise<UserFollow[]> {
     return await this.userService.searchUser(user, pattern);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => User)
+  async updateUser(
+    @UserContext() user: User,
+    @Args('user') pattern: UpdateUser,
+  ): Promise<User> {
+    return await this.userService.updateUser(user, pattern);
   }
 }
