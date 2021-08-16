@@ -6,7 +6,7 @@ import { HeaderStyle, Container, InputStyle, Button } from './styles'
 
 export default function Publisher() {
   const { push } = useRouter()
-  const [add, { loading }] = useMutation(CREATE_PUBLISHER, {
+  const [add] = useMutation(CREATE_PUBLISHER, {
     onCompleted: () => {
       push('/home')
     }

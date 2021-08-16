@@ -1,20 +1,50 @@
 import React from 'react'
-import { UserCardStyle, Avatar, StyledName, InfosDiv, Infos, SeeButton } from './styles'
+import {
+  UserCardStyle,
+  Avatar,
+  StyledName,
+  InfosDiv,
+  Infos,
+  SeeButton,
+  Follow
+} from './styles'
+type UserCardProps = {
+  url: string
+  name: string
+  follow: boolean
+  id: string
+  callBackFollow: (id: string) => void
+  callBackUnFollow: (id: string) => void
+}
+export default function UserCard({
+  name,
+  url,
+  follow,
+  id,
+  callBackFollow,
+  callBackUnFollow
+}: UserCardProps) {
+  function handleFollow() {
+    callBackFollow(id)
+  }
 
-export default function UserCard() {
+  function handleUnfollow() {
+    callBackUnFollow(id)
+  }
   return (
     <UserCardStyle>
       <Avatar>
-        <img src="https://avatars.githubusercontent.com/u/43068788?v=4" width="100%" />
+        <img src={url} width="100%" />
       </Avatar>
       <InfosDiv>
-        <StyledName>alvaro</StyledName>
+        <StyledName>{name}</StyledName>
         <Infos>
           <p>Seguindo: 0</p>
           <p>Seguidores: 0</p>
         </Infos>
       </InfosDiv>
-      <SeeButton>Ver mais</SeeButton>
+      {follow && <SeeButton onChange={handleUnfollow}>Deixar de seguir</SeeButton>}
+      {!follow && <Follow onChange={handleFollow}>Seguir</Follow>}
     </UserCardStyle>
   )
 }

@@ -27,7 +27,7 @@ export const Main = styled.div`
   flex-direction: column;
 `
 export const Aside = styled.div`
-  width: 40%;
+  width: 100%;
   position: relative;
   height: 100vh;
   background-color: ${(props) => props.theme.colors.primaryLight};

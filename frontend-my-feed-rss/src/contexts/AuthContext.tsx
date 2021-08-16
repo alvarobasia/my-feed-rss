@@ -18,6 +18,7 @@ export type User = {
   name: string
   email: string
   linkAvatar: string
+  follow?: boolean
 }
 
 export const AuthContext = createContext({} as AuthContextType)

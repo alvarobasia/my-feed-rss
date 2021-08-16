@@ -6,6 +6,11 @@ export class UserFollow {
   @IsString()
   @MaxLength(30)
   @Field()
+  id: string;
+
+  @IsString()
+  @MaxLength(30)
+  @Field()
   name: string;
 
   @IsString()
