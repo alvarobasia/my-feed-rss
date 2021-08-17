@@ -7,3 +7,18 @@ export const CREATE_PUBLISHER = gql`
     }
   }
 `
+
+export const UNFOLLOW_PUB = gql`
+  mutation unfollowPub($id: String!) {
+    unfollowPublisher(id: { id: $id }) {
+      id
+    }
+  }
+`
+export const FOLLOW_PUB = gql`
+  mutation followPub($id: String!) {
+    followPublisher(id: { id: $id }) {
+      id
+    }
+  }
+`

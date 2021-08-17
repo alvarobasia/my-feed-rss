@@ -45,3 +45,18 @@ export const ADD_USER = gql`
     }
   }
 `
+
+export const UNFOLLOW_USER = gql`
+  mutation unfollow($id: String!) {
+    unfollow(id: { id: $id }) {
+      id
+    }
+  }
+`
+export const FOLLOW_USER = gql`
+  mutation followUser($id: String!) {
+    followUser(id: { id: $id }) {
+      id
+    }
+  }
+`

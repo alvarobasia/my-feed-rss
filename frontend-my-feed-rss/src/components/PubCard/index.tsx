@@ -1,10 +1,29 @@
 import React from 'react'
 import { PubType } from '../../pages/pub'
-import { UserCardStyle, Avatar, StyledName, InfosDiv, Infos, SeeButton } from './styles'
+import {
+  UserCardStyle,
+  Avatar,
+  StyledName,
+  InfosDiv,
+  Infos,
+  SeeButton,
+  Follow
+} from './styles'
 type PubCardProps = {
   pub: PubType
+  callBackFollow: (id: string) => void
+  callBackUnFollow: (id: string) => void
 }
-export default function PubCard({ pub }: PubCardProps) {
+export default function PubCard({ pub, callBackFollow, callBackUnFollow }: PubCardProps) {
+  console.log(pub.follow)
+
+  function handleFollow() {
+    callBackFollow(pub.id)
+  }
+
+  function handleUnfollow() {
+    callBackUnFollow(pub.id)
+  }
   return (
     <UserCardStyle>
       <Avatar>
@@ -14,10 +33,11 @@ export default function PubCard({ pub }: PubCardProps) {
         <StyledName>{pub.name}</StyledName>
         <Infos>
           <p>Seguidores: {pub.followers.length}</p>
-          <p>Membros: {pub.members.length}</p>
+          <p>Publicações: 0</p>
         </Infos>
       </InfosDiv>
-      <SeeButton>Ver mais</SeeButton>
+      {pub.follow && <SeeButton onClick={handleUnfollow}>Deixar de seguir</SeeButton>}
+      {!pub.follow && <Follow onClick={handleFollow}>Seguir</Follow>}
     </UserCardStyle>
   )
 }

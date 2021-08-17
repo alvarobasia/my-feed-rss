@@ -13,16 +13,28 @@ import {
 } from './styles'
 import { useEffect, useState } from 'react'
 import { GET_FEED } from '../../query/feed'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client'
 import { User } from '../../contexts/AuthContext'
 import { SEARCH_USER } from '../../query/user'
 import { useRouter } from 'next/router'
+import { FOLLOW_USER, UNFOLLOW_USER } from '../../mutations/user'
 export default function Users() {
   const [search, setSearch] = useState('')
   const { push } = useRouter()
-  const { data, loading } = useQuery(SEARCH_USER, {
+
+  const { data, refetch } = useQuery(SEARCH_USER, {
     variables: {
       pattern: search
+    }
+  })
+  const [follow] = useMutation(FOLLOW_USER, {
+    onCompleted: () => {
+      refetch()
+    }
+  })
+  const [unfollow] = useMutation(UNFOLLOW_USER, {
+    onCompleted: () => {
+      refetch()
     }
   })
   function handleSearch() {}
@@ -44,9 +56,21 @@ export default function Users() {
     }
   }, [data])
 
-  function handleFollow(id: string) {}
+  function handleFollow(id: string) {
+    follow({
+      variables: {
+        id
+      }
+    })
+  }
 
-  function handleUnfollow(id: string) {}
+  function handleUnfollow(id: string) {
+    unfollow({
+      variables: {
+        id
+      }
+    })
+  }
   return (
     <Container>
       <Aside>
@@ -59,9 +83,9 @@ export default function Users() {
           <SearchButton onClick={back}>
             <BackIcon />
           </SearchButton>
-          <Back onClick={handleSearch}>
+          {/* <Back onClick={handleSearch}>
             <SearchIcon />
-          </Back>
+          </Back> */}
         </ContainerHead>
         <UsersCardContainer>
           {users &&

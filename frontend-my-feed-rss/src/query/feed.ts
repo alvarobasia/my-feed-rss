@@ -16,3 +16,13 @@ export const GET_FEED = gql`
     }
   }
 `
+
+export const SEARCH_PUB = gql`
+  query searchPub($pattern: String!) {
+    searchPublisher(pattern: $pattern) {
+      name
+      id
+      follow
+    }
+  }
+`

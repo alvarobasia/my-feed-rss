@@ -43,8 +43,8 @@ export default function UserCard({
           <p>Seguidores: 0</p>
         </Infos>
       </InfosDiv>
-      {follow && <SeeButton onChange={handleUnfollow}>Deixar de seguir</SeeButton>}
-      {!follow && <Follow onChange={handleFollow}>Seguir</Follow>}
+      {follow && <SeeButton onClick={handleUnfollow}>Deixar de seguir</SeeButton>}
+      {!follow && <Follow onClick={handleFollow}>Seguir</Follow>}
     </UserCardStyle>
   )
 }

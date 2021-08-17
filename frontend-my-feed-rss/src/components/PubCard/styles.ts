@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const UserCardStyle = styled.div`
-  width: 92%;
+  width: 50%;
   height: 80px;
   background-color: ${(props) => props.theme.colors.primaryDark};
   margin-top: 15px;
@@ -44,6 +44,21 @@ export const Infos = styled.div`
 `
 export const SeeButton = styled.button`
   width: 90px;
+  height: 50%;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-family: Lato, sans-serif;
+  background-color: ${(props) => props.theme.colors.primaryLight};
+  color: #fff;
+  transition: all 500ms;
+  &:hover {
+    background-color: ${(props) => props.theme.colors.secondaryDark};
+  }
+`
+
+export const Follow = styled.button`
+  width: 150px;
   height: 50%;
   border: none;
   border-radius: 8px;
