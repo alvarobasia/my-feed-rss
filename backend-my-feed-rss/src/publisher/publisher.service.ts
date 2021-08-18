@@ -60,4 +60,8 @@ export class PublisherService {
   async unfollow(user: User, id: string): Promise<Publisher[]> {
     return await this.publisherRepository.unfollow(user, id);
   }
+
+  async getPubs(user: User): Promise<Publisher> {
+    return await this.publisherRepository.getUserPub(user);
+  }
 }

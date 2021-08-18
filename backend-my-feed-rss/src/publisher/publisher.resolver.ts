@@ -76,4 +76,10 @@ export class PublisherResolver {
   ): Promise<Publisher[]> {
     return await this.publisherService.unfollow(user, pubFollow.id);
   }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => Publisher)
+  async getPubs(@UserContext() user: User): Promise<Publisher> {
+    return await this.publisherService.getPubs(user);
+  }
 }

@@ -80,6 +80,7 @@ type Query {
   searchUser(pattern: String!): [UserFollow!]!
   getFeed: [Feed!]!
   searchPublisher(pattern: String!): [PublisherFollow!]!
+  getPubs: Publisher!
 }
 
 type Mutation {

@@ -89,7 +89,6 @@ export class PublisherRepository {
       'SELECT p.* from publisher p, follow_publisher f where p.id = f.id_publisher and f.id_user = $1';
     const valuesFollow = [user.id];
     const follow = await client.query(textFollow, valuesFollow);
-    console.log(publishers);
 
     await closeConnection();
 
@@ -136,5 +135,17 @@ export class PublisherRepository {
     await closeConnection();
 
     return result.rows;
+  }
+
+  async getUserPub(user: User): Promise<Publisher> {
+    const client = db();
+
+    const text = 'select * from publisher where id_owner=$1';
+    const values = [user.id];
+    const result = await client.query(text, values);
+
+    await closeConnection();
+
+    return result.rows[0];
   }
 }
