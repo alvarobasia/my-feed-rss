@@ -29,7 +29,7 @@ export default function Home() {
           <HomeButton path="/pub" title="Criar publicadora">
             <StylePub />
           </HomeButton>
-          <HomeButton path="/pub" title="Suas publicadoras">
+          <HomeButton path="/yourpubs" title="Suas publicadoras">
             <StylePub />
           </HomeButton>
           <HomeButton path="/users" title="Procurar usuário">

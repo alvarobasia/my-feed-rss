@@ -113,7 +113,6 @@ export class UserRepository {
 
   async updateUser(user: User): Promise<User> {
     const client = db();
-    console.log(user);
 
     const text =
       'update users set name=$1, username=$2, email=$3, link_avatar=$4 where id=$5';
