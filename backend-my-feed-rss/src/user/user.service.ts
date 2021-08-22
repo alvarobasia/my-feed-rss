@@ -3,7 +3,7 @@ import { FeedRepository } from 'src/feed/feed-repository';
 import { hashPassword } from 'src/utils/hash-password';
 import { AddLink } from './dto/add-new-link.input';
 import { CreateUser } from './dto/create-user.input';
-import { UserFollow } from './dto/search-response-user.input copy';
+import { UserFollow } from './dto/search-response-user.input';
 import { UpdateUser } from './dto/update-user.input';
 import { RssLink } from './entities/rsslink.entity';
 import { User } from './entities/user.entity';

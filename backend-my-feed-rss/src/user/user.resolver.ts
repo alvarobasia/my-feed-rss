@@ -8,7 +8,7 @@ import { AddLink } from './dto/add-new-link.input';
 import { RssLink } from './entities/rsslink.entity';
 import { UserContext } from 'src/decorators/user-decorator';
 import { AddUserFollow } from './dto/add_user-follow-dto';
-import { UserFollow } from './dto/search-response-user.input copy';
+import { UserFollow } from './dto/search-response-user.input';
 import { UpdateUser } from './dto/update-user.input';
 import { DeleteLink } from './dto/delete-link.input';
 

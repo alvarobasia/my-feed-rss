@@ -10,7 +10,7 @@ export class PublisherFollow {
   name: string;
 
   @Field(() => String)
-  avatarLink: string;
+  avatar_link: string;
 
   @Field(() => String)
   idOwner: string;
