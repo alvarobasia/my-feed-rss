@@ -60,3 +60,8 @@ export const FOLLOW_USER = gql`
     }
   }
 `
+export const DELETE_LINK = gql`
+  mutation deleteLink($link: String!) {
+    deleteLink(link: { link: $link })
+  }
+`

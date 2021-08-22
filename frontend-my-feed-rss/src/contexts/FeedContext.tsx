@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client'
+import { useLazyQuery, useQuery } from '@apollo/client'
 import { createContext, PropsWithChildren, useState, useEffect } from 'react'
 import { GET_FEED } from '../query/feed'
 
@@ -18,14 +18,19 @@ export interface Feed {
 type FeedContextType = {
   feed: Feed[]
   loading: boolean
+  h: any
+  refetch: any
 }
 
 export const FeedContext = createContext({} as FeedContextType)
 
 export function FeedProvider(props: PropsWithChildren<any>) {
   const [feed, setFeed] = useState<Feed[]>([])
-  const { data, loading } = useQuery(GET_FEED)
+  const [c, { data, loading, refetch }] = useLazyQuery(GET_FEED)
 
+  function h() {
+    c()
+  }
   useEffect(() => {
     const userFeed: Feed[] = []
     if (data) {
@@ -41,7 +46,7 @@ export function FeedProvider(props: PropsWithChildren<any>) {
   }, [data])
 
   return (
-    <FeedContext.Provider value={{ feed, loading }}>
+    <FeedContext.Provider value={{ feed, loading, h, refetch }}>
       {props.children}
     </FeedContext.Provider>
   )

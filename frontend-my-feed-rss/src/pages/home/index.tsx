@@ -9,11 +9,6 @@ import { AuthContext } from '../../contexts/AuthContext'
 import HomeButton from '../../components/HomeButton'
 
 export default function Home() {
-  const { singIn } = useContext(AuthContext)
-  useEffect(() => {
-    singIn('alvaro@mail.com', '123')
-  }, [])
-
   return (
     <>
       <HomeDiv>
@@ -26,10 +21,10 @@ export default function Home() {
           <HomeButton path="/pub" title="Procurar publicadoras">
             <StylePub />
           </HomeButton>{' '}
-          <HomeButton path="/pub" title="Criar publicadora">
+          <HomeButton path="/publisher" title="Criar publicadora">
             <StylePub />
           </HomeButton>
-          <HomeButton path="/yourpubs" title="Suas publicadoras">
+          <HomeButton path="/yourpubs" title="Sua publicadora">
             <StylePub />
           </HomeButton>
           <HomeButton path="/users" title="Procurar usuário">

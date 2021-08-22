@@ -7,17 +7,18 @@ import {
   SearchButton,
   BackIcon
 } from '../users/styles'
-import { PubCardContainer } from './styles'
+import { PubCardContainer, ContentInfo } from './styles'
 import PubCard from '../../components/PubCard'
 import PubPanel from '../../components/PubPanel'
 import { AuthContext, User } from '../../contexts/AuthContext'
 import React, { useContext, useEffect, useState } from 'react'
 import { SEARCH_PUB } from '../../query/feed'
-import { useMutation, useQuery } from '@apollo/client'
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client'
 import { FOLLOW_PUB, UNFOLLOW_PUB } from '../../mutations/publisher'
 import { useRouter } from 'next/router'
-import { GET_PUBS } from '../../query/pub'
-
+import { GET_PUBLICATIONS, GET_PUBS } from '../../query/pub'
+import PubInfo from '../../components/PubInfo'
+import { PubContext } from '../../contexts/PubContext'
 export type PubType = {
   name: string
   avatarLink: string
@@ -30,10 +31,21 @@ export type PubType = {
 export default function Pub() {
   const { push } = useRouter()
   const [pubs, setPubs] = useState<PubType | null>(null)
+  const [content, setContent] = useState<any[]>([])
   const { data } = useQuery(GET_PUBS)
+  const [publications, { data: publi, refetch }] = useLazyQuery(GET_PUBLICATIONS)
+  const { setPub } = useContext(PubContext)
 
-  function back() {
-    push('/home')
+  useEffect(() => {
+    if (refetch) {
+      refetch()
+    }
+  }, [])
+  function handleClick() {
+    if (pubs) {
+      setPub(pubs)
+      push('/newpub')
+    }
   }
 
   useEffect(() => {
@@ -41,6 +53,22 @@ export default function Pub() {
       setPubs(data.getPubs)
     }
   }, [data])
+
+  useEffect(() => {
+    if (pubs) {
+      publications({
+        variables: {
+          id: pubs.id
+        }
+      })
+    }
+  }, [pubs])
+
+  useEffect(() => {
+    if (publi) {
+      setContent(publi.getPublications)
+    }
+  }, [publi])
   return (
     <Container>
       <Aside>
@@ -49,9 +77,8 @@ export default function Pub() {
         </ContainerHead>
         <PubCardContainer>
           {pubs && (
-            <PubCard
-              callBackFollow={() => {}}
-              callBackUnFollow={() => {}}
+            <PubInfo
+              writePublication={handleClick}
               key={pubs.id}
               pub={{
                 avatarLink: pubs.avatarLink,
@@ -64,6 +91,11 @@ export default function Pub() {
             />
           )}
         </PubCardContainer>
+        <ContentInfo>
+          {content.map(({ content }) => {
+            return <div key={content} dangerouslySetInnerHTML={{ __html: content }} />
+          })}
+        </ContentInfo>
       </Aside>
     </Container>
   )

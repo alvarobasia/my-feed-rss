@@ -32,7 +32,7 @@ export default function Card({ item, rssName }: CardProps) {
       </Logo>
       <Content>
         <h1>{item.title}</h1>
-        <p>{item.content}</p>
+        <p>{item.content.split(120)}</p>
       </Content>
       <ToolBar>
         {/* <Actions>

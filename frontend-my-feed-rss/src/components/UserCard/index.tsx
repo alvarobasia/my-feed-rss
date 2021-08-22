@@ -38,10 +38,10 @@ export default function UserCard({
       </Avatar>
       <InfosDiv>
         <StyledName>{name}</StyledName>
-        <Infos>
+        {/* <Infos>
           <p>Seguindo: 0</p>
           <p>Seguidores: 0</p>
-        </Infos>
+        </Infos> */}
       </InfosDiv>
       {follow && <SeeButton onClick={handleUnfollow}>Deixar de seguir</SeeButton>}
       {!follow && <Follow onClick={handleFollow}>Seguir</Follow>}

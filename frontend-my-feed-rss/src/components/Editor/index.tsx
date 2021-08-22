@@ -1,4 +1,5 @@
 import { Editor, EditorState, RichUtils, CompositeDecorator } from 'draft-js'
+import { useRouter } from 'next/router'
 
 import React, { useState } from 'react'
 import { EditorButton } from './EditorButton'
@@ -21,6 +22,7 @@ import {
   Remove,
   ButtonAction
 } from './styles'
+import { useDraft } from './useDraft'
 import { useLink } from './useLink'
 
 function findLinkEntities(contentBlock: any, callback: any, contentState: any) {
@@ -44,7 +46,11 @@ const Link = (props: any) => {
   )
 }
 
-export default function EditorApp() {
+type EditorAppProps = {
+  onSavePub: (content: string) => void
+}
+
+export default function EditorApp({ onSavePub }: EditorAppProps) {
   const [link, setLink] = useState('')
   const [editorState, setEditorState] = useState(() => {
     const decorator = new CompositeDecorator([
@@ -55,11 +61,23 @@ export default function EditorApp() {
     ])
     return EditorState.createEmpty(decorator)
   })
+  const { push } = useRouter()
   const { removeLink, saveLink } = useLink()
+  const { convertToHTML } = useDraft()
   function handleCommandInline(command: string) {
     setEditorState(RichUtils.toggleInlineStyle(editorState, command))
   }
 
+  function handleSaveDraft() {
+    const content = convertToHTML(editorState)
+    console.log(content)
+
+    onSavePub(content)
+  }
+
+  function handleBack() {
+    push('/yourpubs')
+  }
   function handleCommandBlock(command: string) {
     setEditorState(RichUtils.toggleBlockType(editorState, command))
   }
@@ -122,8 +140,12 @@ export default function EditorApp() {
           onChange={(e) => setLink(e.target.value)}
           value={link}
         />
-        <ButtonAction buttonType="save">Salvar</ButtonAction>
-        <ButtonAction buttonType="">Discartar</ButtonAction>
+        <ButtonAction buttonType="save" onClick={handleSaveDraft}>
+          Salvar
+        </ButtonAction>
+        <ButtonAction buttonType="" onClick={handleBack}>
+          Discartar
+        </ButtonAction>
       </ConfigContainer>
 
       <EditorStyle>

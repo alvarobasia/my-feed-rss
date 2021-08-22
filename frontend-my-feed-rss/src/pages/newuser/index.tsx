@@ -17,7 +17,6 @@ export default function NewUser() {
       push('/login')
     }
   })
-
   const [name, setName] = useState('')
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
@@ -34,6 +33,7 @@ export default function NewUser() {
         link
       }
     })
+    push('/login')
   }
   return (
     <>

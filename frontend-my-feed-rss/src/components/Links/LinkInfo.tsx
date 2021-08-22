@@ -1,25 +1,30 @@
-import { useState } from 'react'
-import { DivLink, IconRemove, EditIcon, EditInput, EditButton } from './styles'
+// import { useState } from 'react'
+import { DivLink, IconRemove, EditInput, EditButton } from './styles'
 
 type LinkInfoProps = {
   link: string
   name: string
+  callBackOnRemove: (link: string) => void
 }
 
-export default function LinkInfo({ name }: LinkInfoProps) {
-  const [editMode, setEditMode] = useState(false)
+export default function LinkInfo({ name, link, callBackOnRemove }: LinkInfoProps) {
+  // const [editMode, setEditMode] = useState(false)
 
-  function handleEditMode() {
-    setEditMode((prev) => !prev)
+  // function handleEditMode() {
+  //   setEditMode((prev) => !prev)
+  // }
+
+  function handleDelete(linkReceive: string) {
+    callBackOnRemove(linkReceive)
   }
 
   return (
-    <DivLink editMode={editMode}>
+    <DivLink editMode={false}>
       <div>
         <p>{name}</p>
         <div>
-          <EditIcon onClick={handleEditMode} />
-          <IconRemove />
+          {/* <EditIcon onClick={handleEditMode} /> */}
+          <IconRemove onClick={() => handleDelete(link)} />
         </div>
       </div>
       <div>

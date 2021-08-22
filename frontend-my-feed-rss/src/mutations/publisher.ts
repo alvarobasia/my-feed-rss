@@ -22,3 +22,22 @@ export const FOLLOW_PUB = gql`
     }
   }
 `
+export const ADD_PUBLI = gql`
+  mutation addPubli(
+    $title: String!
+    $description: String!
+    $content: String!
+    $idPublisher: String!
+  ) {
+    createPublication(
+      createPublicationInput: {
+        title: $title
+        description: $description
+        content: $content
+        idPublisher: $idPublisher
+      }
+    ) {
+      id
+    }
+  }
+`

@@ -11,9 +11,9 @@ export default function UserHeadBar() {
         <img src={user?.linkAvatar} width="100%" />
       </Avatar>
       <span>{user?.username}</span>
-      <FollowCard info={0} text={'Seguindo'} />
+      {/* <FollowCard info={0} text={'Seguindo'} />
       <FollowCard info={0} text={'Seguidores'} />
-      <FollowCard info={2} text={'Links'} />
+      <FollowCard info={2} text={'Links'} /> */}
       <LogOut />
     </Container>
   )

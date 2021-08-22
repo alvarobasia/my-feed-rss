@@ -5,7 +5,7 @@ type SelectProps = {
 export default function Select({ onChange }: SelectProps) {
   return (
     <SelectStyle onChange={(e) => onChange(e.target.value)}>
-      <option></option>
+      <option value="unstyled"></option>
       <option value="header-one">H1</option>
       <option value="header-two">H2</option>
       <option value="header-three">H3</option>

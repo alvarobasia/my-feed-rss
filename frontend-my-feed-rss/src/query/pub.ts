@@ -8,3 +8,11 @@ export const GET_PUBS = gql`
     }
   }
 `
+
+export const GET_PUBLICATIONS = gql`
+  query getPublications($id: String!) {
+    getPublications(id: { id: $id }) {
+      content
+    }
+  }
+`

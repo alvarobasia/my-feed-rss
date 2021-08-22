@@ -7,6 +7,7 @@ import client from '../../apollo-client'
 import { ApolloProvider } from '@apollo/client'
 import { AuthProvider } from '../contexts/AuthContext'
 import { FeedProvider } from '../contexts/FeedContext'
+import { PubProvider } from '../contexts/PubContext'
 import 'react-toastify/dist/ReactToastify.css'
 import '../../styles/draft.css'
 function MyApp({ Component, pageProps }: AppProps) {
@@ -16,10 +17,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ApolloProvider client={client}>
           <AuthProvider>
             <FeedProvider>
-              <ThemeProvider theme={light}>
-                <GlobalStyle />
-                <Component {...pageProps} />
-              </ThemeProvider>
+              <PubProvider>
+                <ThemeProvider theme={light}>
+                  <GlobalStyle />
+                  <Component {...pageProps} />
+                </ThemeProvider>
+              </PubProvider>
             </FeedProvider>
           </AuthProvider>
         </ApolloProvider>

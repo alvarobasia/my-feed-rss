@@ -49,6 +49,7 @@ export const Logo = styled.div`
 `
 export const Content = styled.div`
   grid-area: cont;
+  /* max-width: 20%; */
   display: flex;
   flex-direction: column;
   padding: 2px;

@@ -22,7 +22,6 @@ export const DivLink = styled.div<DivLinkProps>`
   margin: 10px auto;
   height: ${(props) => (props.editMode ? '70px' : '35px')};
   transition: all 500ms;
-  flex-direction: column;
   background-color: ${(props) => props.theme.colors.secondary};
   padding: 1px;
   border: 2px solid ${(props) => props.theme.colors.secondaryT};

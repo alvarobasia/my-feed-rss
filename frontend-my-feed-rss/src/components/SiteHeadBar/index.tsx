@@ -35,6 +35,7 @@ export default function SiteHeadBar() {
             duration: 0.5
           }}
           main={true}
+          onClick={() => router.push('/newuser')}
         >
           Registrar
         </Button>

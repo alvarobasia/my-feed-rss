@@ -43,13 +43,13 @@ export const Infos = styled.div`
   }
 `
 export const SeeButton = styled.button`
-  width: 160px;
+  width: 110px;
   height: 50%;
   border: none;
   border-radius: 8px;
   font-size: 18px;
   font-family: Lato, sans-serif;
-  background-color: red;
+  background-color: ${(props) => props.theme.colors.primaryLight};
   color: #fff;
   transition: all 500ms;
   &:hover {
@@ -58,11 +58,11 @@ export const SeeButton = styled.button`
 `
 
 export const Follow = styled.button`
-  width: 160px;
+  width: 140px;
   height: 50%;
   border: none;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 14px;
   font-family: Lato, sans-serif;
   background-color: ${(props) => props.theme.colors.primaryLight};
   color: #fff;
