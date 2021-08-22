@@ -11,6 +11,7 @@ import { AddPublisherFollow } from './dto/add_publisher-follow-dto';
 import { PublisherFollow } from './dto/search-response-publisher.input copy';
 import { Publication } from './entities/publication.entity';
 import { UpdatePublicationInput } from './dto/update-publication.input copy';
+import { DeleteLink } from '../user/dto/delete-link.input';
 // import { UpdatePublisherInput } from './dto/update-publisher.input';
 
 @Resolver(() => Publisher)
@@ -81,5 +82,13 @@ export class PublisherResolver {
   @Query(() => Publisher)
   async getPubs(@UserContext() user: User): Promise<Publisher> {
     return await this.publisherService.getPubs(user);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [Publication])
+  async getPublications(
+    @Args('id') publiId: AddPublisherFollow,
+  ): Promise<Publication[]> {
+    return await this.publisherService.getPublications(publiId.id);
   }
 }

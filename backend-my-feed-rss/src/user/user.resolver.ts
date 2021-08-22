@@ -10,6 +10,7 @@ import { UserContext } from 'src/decorators/user-decorator';
 import { AddUserFollow } from './dto/add_user-follow-dto';
 import { UserFollow } from './dto/search-response-user.input copy';
 import { UpdateUser } from './dto/update-user.input';
+import { DeleteLink } from './dto/delete-link.input';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -37,6 +38,8 @@ export class UserResolver {
     @Args('addLink') link: AddLink,
     @UserContext() user: User,
   ): Promise<RssLink> {
+    console.log(user, link);
+
     const rss = await this.userService.createNewLink(link, user);
     return rss;
   }
@@ -81,5 +84,15 @@ export class UserResolver {
     @Args('id') userFollow: AddUserFollow,
   ): Promise<User[]> {
     return await this.userService.unfollow(user, userFollow.id);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => String)
+  async deleteLink(
+    @UserContext() user: User,
+    @Args('link') link: DeleteLink,
+  ): Promise<string> {
+    await this.userService.deleteLink(link.link, user);
+    return 'ok';
   }
 }

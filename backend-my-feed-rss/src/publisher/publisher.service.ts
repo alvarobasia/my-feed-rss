@@ -64,4 +64,8 @@ export class PublisherService {
   async getPubs(user: User): Promise<Publisher> {
     return await this.publisherRepository.getUserPub(user);
   }
+
+  async getPublications(publiId: string): Promise<Publication[]> {
+    return await this.publisherRepository.getPublications(publiId);
+  }
 }

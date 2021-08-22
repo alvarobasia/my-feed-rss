@@ -52,14 +52,14 @@ type AuthType {
 type Publisher {
   id: String!
   name: String!
-  avatarLink: String!
+  avatar_link: String!
   idOwner: String!
 }
 
 type PublisherFollow {
   id: String!
   name: String!
-  avatarLink: String!
+  avatar_link: String!
   idOwner: String!
   follow: Boolean!
 }
@@ -81,6 +81,11 @@ type Query {
   getFeed: [Feed!]!
   searchPublisher(pattern: String!): [PublisherFollow!]!
   getPubs: Publisher!
+  getPublications(id: AddPublisherFollow!): [Publication!]!
+}
+
+input AddPublisherFollow {
+  id: String!
 }
 
 type Mutation {
@@ -89,6 +94,7 @@ type Mutation {
   followUser(id: AddUserFollow!): [User!]!
   updateUser(user: UpdateUser!): User!
   unfollow(id: AddUserFollow!): [User!]!
+  deleteLink(link: DeleteLink!): String!
   login(login: AuthInput!): AuthType!
   createPublisher(createPublisherInput: CreatePublisherInput!): Publisher!
   createPublication(createPublicationInput: CreatePublicationInput!): Publication!
@@ -121,6 +127,10 @@ input UpdateUser {
   link_avatar: String!
 }
 
+input DeleteLink {
+  link: String!
+}
+
 input AuthInput {
   email: String!
   password: String!
@@ -136,10 +146,6 @@ input CreatePublicationInput {
   description: String!
   content: String!
   idPublisher: String!
-}
-
-input AddPublisherFollow {
-  id: String!
 }
 
 input UpdatePublicationInput {

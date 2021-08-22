@@ -51,6 +51,8 @@ export class UserRepository {
   async createNewLink(rssLink: RssLink) {
     const client = db();
 
+    console.log(rssLink);
+
     const text =
       'insert into rsslinks(name, link, added_at, id_user) values ($1, $2, $3, $4)';
     const values = [
@@ -59,6 +61,17 @@ export class UserRepository {
       rssLink.added_at,
       rssLink.user.id,
     ];
+
+    await client.query(text, values);
+
+    return;
+  }
+
+  async deleteLink(rssLinkId: string, user: User): Promise<void> {
+    const client = db();
+
+    const text = 'delete from rsslinks where link=$1 and id_user=$2';
+    const values = [rssLinkId, user.id];
 
     await client.query(text, values);
 

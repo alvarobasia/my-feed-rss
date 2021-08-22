@@ -148,4 +148,16 @@ export class PublisherRepository {
 
     return result.rows[0];
   }
+
+  async getPublications(publiId: string): Promise<Publication[]> {
+    const client = db();
+
+    const text = 'select * from publication where id_publisher=$1';
+    const values = [publiId];
+    const result = await client.query(text, values);
+
+    await closeConnection();
+
+    return result.rows;
+  }
 }

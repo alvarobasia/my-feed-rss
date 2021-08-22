@@ -86,4 +86,8 @@ export class UserService {
   async unfollow(user: User, id: string): Promise<User[]> {
     return await this.userRepository.unfollow(user, id);
   }
+
+  async deleteLink(rssLinkId: string, user: User): Promise<void> {
+    return await this.userRepository.deleteLink(rssLinkId, user);
+  }
 }
